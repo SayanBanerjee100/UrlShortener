@@ -25,7 +25,7 @@ public class UrlController {
 
         UrlMapping mapping = service.createShortUrl(request.getOriginalUrl());
 
-        return new UrlResponse("http://localhost:8080/" + mapping.getShortCode());
+        return new UrlResponse("http://localhost:8080/api/" + mapping.getShortCode());
     }
 
     @GetMapping("/{shortCode}")
@@ -37,11 +37,11 @@ public class UrlController {
         if(mapping.isPresent()) {
             response.sendRedirect(mapping.get().getOriginalUrl());
         } else {
-            response.setStatus(404);
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
     }
 
-    @GetMapping("/stats/{shortCode}")
+    @GetMapping(value="/stats/{shortCode}", produces="application/json")
     public UrlStatsResponse getStats(@PathVariable String shortCode) {
 
         UrlMapping mapping = service.getStats(shortCode);
