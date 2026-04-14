@@ -34,7 +34,7 @@ public class UrlService {
         Optional<UrlMapping> mapping = repository.findByShortCode(shortCode);
 
         mapping.ifPresent(url -> {
-            url.setClickCount(url.getClickCount() + 1);
+
             url.setLastAccessed(LocalDateTime.now());
             repository.save(url);
         });
@@ -42,8 +42,4 @@ public class UrlService {
         return mapping;
     }
 
-    public UrlMapping getStats(String shortCode) {
-        return repository.findByShortCode(shortCode)
-                .orElseThrow(() -> new RuntimeException("URL not found"));
-    }
 }

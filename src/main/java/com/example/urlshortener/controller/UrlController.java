@@ -41,15 +41,5 @@ public class UrlController {
         }
     }
 
-    @GetMapping(value="/stats/{shortCode}", produces="application/json")
-    public UrlStatsResponse getStats(@PathVariable String shortCode) {
 
-        UrlMapping mapping = service.getStats(shortCode);
-
-        return new UrlStatsResponse(
-                mapping.getOriginalUrl(),
-                mapping.getClickCount(),
-                mapping.getCreatedAt()
-        );
-    }
 }
